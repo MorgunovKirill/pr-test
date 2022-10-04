@@ -35,6 +35,7 @@ export default {
 
 .header {
   padding-top: 38px;
+  margin-bottom: 30px;
 
   .container {
     display: flex;    
