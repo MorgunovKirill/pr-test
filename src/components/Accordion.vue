@@ -1,6 +1,11 @@
 <template>
   <ul class="accordion">
-    <draggable :list="list" ghostClass="on-drag" animation="400" :options="{handle:'.handle'}">
+    <draggable
+      :list="list"
+      ghostClass="on-drag"
+      animation="400"
+      :options="{ handle: '.handle' }"
+    >
       <li
         v-for="item in list"
         :key="item.id"
@@ -49,14 +54,29 @@ export default {
   },
   props: ["list"],
   methods: {
+    // toggleTab(evt) {
+    //   const target = evt.target.closest(".accordion__item");
+    //   target
+    //     .querySelector(".accordion__container")
+    //     .classList.toggle("accordion__container--active");
+    //   target
+    //     .querySelector(".accordion__content")
+    //     .classList.toggle("accordion__content--active");
+    // },
+
     toggleTab(evt) {
       const target = evt.target.closest(".accordion__item");
+      const content = target.querySelector(".accordion__content");
       target
         .querySelector(".accordion__container")
         .classList.toggle("accordion__container--active");
-      target
-        .querySelector(".accordion__content")
-        .classList.toggle("accordion__content--active");
+      content.classList.toggle("accordion__content--active");
+      if (content.classList.contains("accordion__content--active")) {
+        content.style.maxHeight =
+          target.querySelector(".accordion__content").scrollHeight + 10 + "px";
+      } else {
+        content.style.maxHeight = 0;
+      }
     },
   },
 };
@@ -165,13 +185,11 @@ export default {
   &__content {
     max-height: 0;
     margin-top: -1px;
-    overflow: hidden;
-    transition: height $default-transition-settings,
-      overflow $default-transition-settings;
+    transition: max-height $default-transition-settings;    
     padding-left: 16px;
-
+     overflow: hidden;
+    
     &--active {
-      max-height: none;
       overflow: visible;
     }
   }
