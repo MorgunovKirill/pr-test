@@ -1,13 +1,31 @@
 <template>
   <div id="app">
-    <HeaderComponent />
+    <header-component></header-component>
     <div class="container">
-      <SearchComponent />
+      <search-component></search-component>
       <accordion-component :list="list">
         <template #item="{item}">
-          <p class="accordion__content-item" v-html="item.content"></p>
+          <documents-list :list="item.documents"></documents-list>
+          <!-- <document-item :item="item.documents"></document-item> -->
         </template>
       </accordion-component>
+      <document-item
+        :item="{
+            title: 'Тестовое задание кандидата',
+            description: 'Россия, Белоруссия, Украина, администратор филиала, повар-сушист, повар-пиццмейкер, повар горячего цеха',
+        }"
+      ></document-item>
+       <document-item
+        :item="{
+            title: 'Трудовой договор',
+             }"
+      ></document-item>
+       <document-item
+        :item="{
+            title: 'Медкнижка',
+             }"
+      ></document-item>
+      
     </div>
   </div>
 </template>
@@ -16,13 +34,17 @@
 import HeaderComponent from "@/components/Header.vue";
 import SearchComponent from "@/components/Search.vue";
 import AccordionComponent from "@/components/Accordion.vue";
+import DocumentsList from "@/components/DocumentsList.vue";
+import DocumentItem from "@/components/DocumentItem.vue";
 
 export default {
   name: "App",
   components: {
     HeaderComponent,
     SearchComponent,
-    AccordionComponent
+    AccordionComponent,
+    DocumentsList,
+    DocumentItem
   },
   data() {
     return {
@@ -30,17 +52,58 @@ export default {
         {
           id: 1,
           title: 'Обязательные для всех',
-          content: 'content1'
+          description: 'Документы, обязательные для всех сотрудников без исключения',
+          documents: [
+            {
+              id: 'doc1',
+              title: 'Паспорт',
+              description: 'Для всех',
+              required: true
+            },
+            {
+              id: 'doc2',
+              title: 'ИНН',
+              description: 'Для всех',
+              required: true
+            },
+          ],            
         },
         {
           id: 2,
           title: 'Обязательные для трудоустройства',
-          content: 'content2'
+          description: 'Документы, без которых невозможно трудоустройство человека на какую бы то ни было должность в компании вне зависимости от граж',
+          documents: [
+            {
+              id: 'doс3',
+              title: 'Паспорт',
+              description: 'Для всех',
+              required: true
+            },
+            {
+              id: 'doc4',
+              title: 'ИНН',
+              description: 'Для всех',
+              required: true
+            },
+          ],   
         },
         {
           id: 3,
           title: 'Специальные',
-          content: 'content3'
+          documents: [
+            {
+              id: 'doc5',
+              title: 'Паспорт',
+              description: 'Для всех',
+              required: true
+            },
+            {
+              id: 'doc6',
+              title: 'ИНН',
+              description: 'Для всех',
+              required: true
+            },
+          ],   
         },
       ]
     }
