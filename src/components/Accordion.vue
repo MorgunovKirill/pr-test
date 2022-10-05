@@ -22,7 +22,14 @@
               <img src="../assets/img/icon-arrow.svg" alt="открыть" />
             </button>
             <h2 class="accordion__title">{{ item.title }}</h2>
-            <ul class="accordion__dots" v-if="item.dots?.length"></ul>
+            <ul class="accordion__dots" v-if="item.dots?.length">
+              <li
+                class="accordion__dot"
+                v-for="dot in item.dots"
+                :key="dot"
+                :style="{ backgroundColor: dot }"
+              ></li>
+            </ul>
             <p class="accordion__description">{{ item.description }}</p>
           </div>
           <div class="accordion__options">
@@ -54,16 +61,6 @@ export default {
   },
   props: ["list"],
   methods: {
-    // toggleTab(evt) {
-    //   const target = evt.target.closest(".accordion__item");
-    //   target
-    //     .querySelector(".accordion__container")
-    //     .classList.toggle("accordion__container--active");
-    //   target
-    //     .querySelector(".accordion__content")
-    //     .classList.toggle("accordion__content--active");
-    // },
-
     toggleTab(evt) {
       const target = evt.target.closest(".accordion__item");
       const content = target.querySelector(".accordion__content");
@@ -185,10 +182,10 @@ export default {
   &__content {
     max-height: 0;
     margin-top: -1px;
-    transition: max-height $default-transition-settings;    
+    transition: max-height $default-transition-settings;
     padding-left: 16px;
-     overflow: hidden;
-    
+    overflow: hidden;
+
     &--active {
       overflow: visible;
     }
@@ -204,6 +201,24 @@ export default {
     color: $color-dark-base;
     margin: 0;
     padding: 9px 15px;
+  }
+
+  &__dots {
+    margin: 0 15px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #000;
+
+    &:not(:last-child) {
+      margin-right: 6px;
+    }
   }
 }
 </style>

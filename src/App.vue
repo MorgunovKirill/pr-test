@@ -67,12 +67,14 @@ export default {
           title: "Обязательные для всех",
           description:
             "Документы, обязательные для всех сотрудников без исключения",
+          dots: ['#FF238D', '#FFB800', '#FF8D23'],
           documents: [
             {
               id: "doc1",
               title: "Паспорт",
               description: "Для всех",
               required: true,
+              dots: ['#00C2FF'],
             },
             {
               id: "doc2",
@@ -130,6 +132,7 @@ export default {
         },
         {
           id: "doc8",
+          dots: ['#00C2FF', '#8E9CBB'],
           title: "Трудовой договор",
         },
         {

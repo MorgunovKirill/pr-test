@@ -2,7 +2,14 @@
   <div class="document">
     <div class="document__info">
       <h2 class="document__title">{{ item.title }}</h2>
-      <ul class="document__dots" v-if="item.dots?.length"></ul>
+      <ul class="document__dots" v-if="item.dots?.length">
+        <li
+          class="document__dot"
+          v-for="dot in item.dots"
+          :key="dot"
+          :style="{ backgroundColor: dot }"
+        ></li>
+      </ul>
       <p class="document__required" v-if="item.required">Обязательный</p>
       <p class="document__description">{{ item.description }}</p>
     </div>
@@ -81,6 +88,24 @@ export default {
     line-height: 108%;
     color: #8e9cbb;
     margin: 0;
+  }
+
+  &__dots {
+    margin: 0 15px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #000;
+
+    &:not(:last-child) {
+      margin-right: 6px;
+    }
   }
 
   &__required {
