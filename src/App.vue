@@ -2,8 +2,8 @@
   <div id="app">
     <header-component></header-component>
     <div class="container">
-      <search-component></search-component>
-      <accordion-component :list="list">
+      <search-component @changeQuery="changeSearchQuery"></search-component>
+      <accordion-component :list="filteredList || list">
         <template #item="{ item }">
           <documents-list>
             <draggable
@@ -31,7 +31,7 @@
         :options="{handle:'.handle'}"
         >
           <document-item
-            v-for="document in unClassifiedList"
+            v-for="document in filteredUnClassifiedList || unClassifiedList"
             :item="document"
             :key="document.id"
           ></document-item>
@@ -137,7 +137,28 @@ export default {
           title: "Медкнижка",
         },
       ],
+      query: "",
+      filteredList: null,
+      filteredUnClassifiedList: null,
     };
+  },
+  methods: {
+    changeSearchQuery(newQuery) {
+      this.query = newQuery;
+      
+      if (this.query) {
+        this.filteredList = this.list.filter((item) => {
+          return item.title.includes(this.query)
+        });
+
+        this.filteredUnClassifiedList = this.unClassifiedList.filter((item) => {
+          return item.title.includes(this.query)
+        });
+      } else {
+        this.filteredList = null;
+         this.filteredUnClassifiedList = null;
+      }
+    }
   },
 };
 </script>

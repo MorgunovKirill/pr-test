@@ -1,6 +1,6 @@
 <template>
   <div class="form-input">
-    <input type="text" v-model="searchQuery" />
+    <input type="text" v-model="searchQuery" @input="changeQuery" />
     <button v-show="searchQuery" @click="clearQuery" class="form-input__clear">
         <img src="../assets/img/icon-cross.svg" alt="очистить поиск"/>
     </button>
@@ -17,6 +17,10 @@ export default {
   methods: {
     clearQuery() {
         this.searchQuery = "";
+        this.$emit('changeQuery', "")
+    },
+    changeQuery() {
+      this.$emit('changeQuery', this.searchQuery)
     }
   }
 };
