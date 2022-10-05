@@ -4,33 +4,33 @@
     <div class="container">
       <search-component></search-component>
       <accordion-component :list="list">
-        <template #item="{item}">
-          <documents-list :list="item.documents"></documents-list>
-          <!-- <document-item :item="item.documents"></document-item> -->
+        <template #item="{ item }">
+          <documents-list>
+            <draggable :list="item.documents">
+              <document-item
+                v-for="document in item.documents"
+                :item="document"
+                :key="document.id"
+              ></document-item>
+            </draggable>
+          </documents-list>
         </template>
       </accordion-component>
-      <document-item
-        :item="{
-            title: 'Тестовое задание кандидата',
-            description: 'Россия, Белоруссия, Украина, администратор филиала, повар-сушист, повар-пиццмейкер, повар горячего цеха',
-        }"
-      ></document-item>
-       <document-item
-        :item="{
-            title: 'Трудовой договор',
-             }"
-      ></document-item>
-       <document-item
-        :item="{
-            title: 'Медкнижка',
-             }"
-      ></document-item>
-      
+      <documents-list>
+        <draggable :list="unClassifiedList">
+          <document-item
+            v-for="document in unClassifiedList"
+            :item="document"
+            :key="document.id"
+          ></document-item>
+        </draggable>
+      </documents-list>
     </div>
   </div>
 </template>
 
 <script>
+import draggable from "vuedraggable";
 import HeaderComponent from "@/components/Header.vue";
 import SearchComponent from "@/components/Search.vue";
 import AccordionComponent from "@/components/Accordion.vue";
@@ -44,70 +44,89 @@ export default {
     SearchComponent,
     AccordionComponent,
     DocumentsList,
-    DocumentItem
+    DocumentItem,
+    draggable,
   },
   data() {
     return {
       list: [
         {
           id: 1,
-          title: 'Обязательные для всех',
-          description: 'Документы, обязательные для всех сотрудников без исключения',
+          title: "Обязательные для всех",
+          description:
+            "Документы, обязательные для всех сотрудников без исключения",
           documents: [
             {
-              id: 'doc1',
-              title: 'Паспорт',
-              description: 'Для всех',
-              required: true
+              id: "doc1",
+              title: "Паспорт",
+              description: "Для всех",
+              required: true,
             },
             {
-              id: 'doc2',
-              title: 'ИНН',
-              description: 'Для всех',
-              required: true
+              id: "doc2",
+              title: "ИНН",
+              description: "Для всех",
+              required: true,
             },
-          ],            
+          ],
         },
         {
           id: 2,
-          title: 'Обязательные для трудоустройства',
-          description: 'Документы, без которых невозможно трудоустройство человека на какую бы то ни было должность в компании вне зависимости от граж',
+          title: "Обязательные для трудоустройства",
+          description:
+            "Документы, без которых невозможно трудоустройство человека на какую бы то ни было должность в компании вне зависимости от граж",
           documents: [
             {
-              id: 'doс3',
-              title: 'Паспорт',
-              description: 'Для всех',
-              required: true
+              id: "doс3",
+              title: "Паспорт",
+              description: "Для всех",
+              required: true,
             },
             {
-              id: 'doc4',
-              title: 'ИНН',
-              description: 'Для всех',
-              required: true
+              id: "doc4",
+              title: "ИНН",
+              description: "Для всех",
+              required: true,
             },
-          ],   
+          ],
         },
         {
           id: 3,
-          title: 'Специальные',
+          title: "Специальные",
           documents: [
             {
-              id: 'doc5',
-              title: 'Паспорт',
-              description: 'Для всех',
-              required: true
+              id: "doc5",
+              title: "Паспорт",
+              description: "Для всех",
+              required: true,
             },
             {
-              id: 'doc6',
-              title: 'ИНН',
-              description: 'Для всех',
-              required: true
+              id: "doc6",
+              title: "ИНН",
+              description: "Для всех",
+              required: true,
             },
-          ],   
+          ],
         },
-      ]
-    }
-  }
+      ],
+      unClassifiedList: [
+        {
+          id: "doc7",
+          title: "Тестовое задание кандидата",
+          description:
+            "Россия, Белоруссия, Украина, администратор филиала, повар-сушист, повар-пиццмейкер, повар горячего цеха",
+        },
+        {
+          id: "doc8",
+          title: "Трудовой договор",
+        },
+        {
+          id: "doc9",
+          title: "Медкнижка",
+        },
+      ],
+    };
+  },
 };
 </script>
 <style lang="scss">

@@ -1,45 +1,52 @@
 <template>
   <ul class="accordion">
-    <li
-      v-for="item in list"
-      :key="item.id"
-      class="accordion__item"
-      :data-index="item.id"
-    >
-      <div class="accordion__container">
-        <div class="accordion__info">
-          <button
-            class="accordion__toggle"
-            @click.prevent="toggleTab"
-            type="button"
-          >
-            <img src="../assets/img/icon-arrow.svg" alt="открыть" />
-          </button>
-          <h2 class="accordion__title">{{ item.title }}</h2>
-          <ul class="accordion__dots" v-if="item.dots?.length"></ul>
-          <p class="accordion__description">{{ item.description }}</p>
+    <draggable :list="list">
+      <li
+        v-for="item in list"
+        :key="item.id"
+        class="accordion__item"
+        :data-index="item.id"
+      >
+        <div class="accordion__container">
+          <div class="accordion__info">
+            <button
+              class="accordion__toggle"
+              @click.prevent="toggleTab"
+              type="button"
+            >
+              <img src="../assets/img/icon-arrow.svg" alt="открыть" />
+            </button>
+            <h2 class="accordion__title">{{ item.title }}</h2>
+            <ul class="accordion__dots" v-if="item.dots?.length"></ul>
+            <p class="accordion__description">{{ item.description }}</p>
+          </div>
+          <div class="accordion__options">
+            <button class="accordion__btn accordion__btn--edit" type="button">
+              <img src="../assets/img/icon-edit.svg" alt="редактировать" />
+            </button>
+            <button class="accordion__btn accordion__btn--delete" type="button">
+              <img src="../assets/img/icon-delete.svg" alt="удалить" />
+            </button>
+            <button class="accordion__btn" type="button">
+              <img src="../assets/img/icon-drag.svg" alt="переместить" />
+            </button>
+          </div>
         </div>
-        <div class="accordion__options">
-          <button class="accordion__btn accordion__btn--edit" type="button">
-            <img src="../assets/img/icon-edit.svg" alt="редактировать" />
-          </button>
-          <button class="accordion__btn accordion__btn--delete" type="button">
-            <img src="../assets/img/icon-delete.svg" alt="удалить" />
-          </button>
-          <button class="accordion__btn" type="button">
-            <img src="../assets/img/icon-drag.svg" alt="переместить" />
-          </button>
+        <div class="accordion__content">
+          <slot name="item" :item="item"></slot>
         </div>
-      </div>
-      <div class="accordion__content">
-        <slot name="item" :item="item"></slot>
-      </div>
-    </li>
+      </li>
+    </draggable>
   </ul>
 </template>
 <script>
+import draggable from "vuedraggable";
+
 export default {
   name: "AccordionComponent",
+  components: {
+    draggable,
+  },
   props: ["list"],
   methods: {
     toggleTab(evt) {
@@ -86,7 +93,7 @@ export default {
     font-weight: 400;
     font-size: 11px;
     line-height: 108%;
-    color: #8E9CBB;
+    color: #8e9cbb;
     margin: 0;
   }
 

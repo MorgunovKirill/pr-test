@@ -1,17 +1,14 @@
 <template>
   <div class="documents">
-        <document-item v-for="document in list" :item="document" :key="document.id"></document-item>
+        <!-- <document-item v-for="document in list" :item="document" :key="document.id"></document-item> -->
+        <slot></slot>
   </div>
 </template>
 <script>
-import DocumentItem from "@/components/DocumentItem.vue";
 
 export default {
   name: "DocumentsList",
   props: ["list"],
-  components: {
-    DocumentItem
-  },
 };
 </script>
 <style lang="scss" scoped>
