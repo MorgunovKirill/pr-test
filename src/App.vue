@@ -6,7 +6,13 @@
       <accordion-component :list="list">
         <template #item="{ item }">
           <documents-list>
-            <draggable :list="item.documents">
+            <draggable
+              :list="item.documents"
+              group="documentsGroup"
+              ghostClass="on-drag"
+              animation="400"
+              :options="{handle:'.handle'}"
+            >
               <document-item
                 v-for="document in item.documents"
                 :item="document"
@@ -17,7 +23,13 @@
         </template>
       </accordion-component>
       <documents-list>
-        <draggable :list="unClassifiedList">
+        <draggable 
+        :list="unClassifiedList" 
+        group="documentsGroup" 
+        ghostClass="on-drag" 
+        animation="400"
+        :options="{handle:'.handle'}"
+        >
           <document-item
             v-for="document in unClassifiedList"
             :item="document"

@@ -85,3 +85,9 @@ select::-ms-expand {
     padding-right: 20px;
   }
 }
+
+.on-drag {
+  border: 1px solid #dfe4ef;
+  box-shadow: 0px 3px 16px rgba(0, 102, 255, 0.7);
+  z-index: 10;
+}

@@ -13,7 +13,7 @@
       <button class="document__btn document__btn--delete" type="button">
         <img src="../assets/img/icon-delete.svg" alt="удалить" />
       </button>
-      <button class="document__btn" type="button">
+      <button class="document__btn handle" type="button">
         <img src="../assets/img/icon-drag.svg" alt="переместить" />
       </button>
     </div>

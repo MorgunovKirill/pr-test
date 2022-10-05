@@ -1,6 +1,6 @@
 <template>
   <ul class="accordion">
-    <draggable :list="list">
+    <draggable :list="list" ghostClass="on-drag" animation="400" :options="{handle:'.handle'}">
       <li
         v-for="item in list"
         :key="item.id"
@@ -27,7 +27,7 @@
             <button class="accordion__btn accordion__btn--delete" type="button">
               <img src="../assets/img/icon-delete.svg" alt="удалить" />
             </button>
-            <button class="accordion__btn" type="button">
+            <button class="accordion__btn handle" type="button">
               <img src="../assets/img/icon-drag.svg" alt="переместить" />
             </button>
           </div>
