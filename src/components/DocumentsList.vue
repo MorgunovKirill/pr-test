@@ -1,7 +1,6 @@
 <template>
   <div class="documents">
-        <!-- <document-item v-for="document in list" :item="document" :key="document.id"></document-item> -->
-        <slot></slot>
+     <slot></slot>
   </div>
 </template>
 <script>

@@ -11,7 +11,8 @@
               group="documentsGroup"
               ghostClass="on-drag"
               animation="400"
-              :options="{handle:'.handle'}"
+              :options="{ handle: '.handle' }"
+              @end="onEnd"
             >
               <document-item
                 v-for="document in item.documents"
@@ -23,12 +24,13 @@
         </template>
       </accordion-component>
       <documents-list>
-        <draggable 
-        :list="unClassifiedList" 
-        group="documentsGroup" 
-        ghostClass="on-drag" 
-        animation="400"
-        :options="{handle:'.handle'}"
+        <draggable
+          :list="unClassifiedList"
+          group="documentsGroup"
+          ghostClass="on-drag"
+          animation="400"
+          :options="{ handle: '.handle' }"
+          @end="onEnd"
         >
           <document-item
             v-for="document in filteredUnClassifiedList || unClassifiedList"
@@ -67,14 +69,14 @@ export default {
           title: "Обязательные для всех",
           description:
             "Документы, обязательные для всех сотрудников без исключения",
-          dots: ['#FF238D', '#FFB800', '#FF8D23'],
+          dots: ["#FF238D", "#FFB800", "#FF8D23"],
           documents: [
             {
               id: "doc1",
               title: "Паспорт",
               description: "Для всех",
               required: true,
-              dots: ['#00C2FF'],
+              dots: ["#00C2FF"],
             },
             {
               id: "doc2",
@@ -132,7 +134,7 @@ export default {
         },
         {
           id: "doc8",
-          dots: ['#00C2FF', '#8E9CBB'],
+          dots: ["#00C2FF", "#8E9CBB"],
           title: "Трудовой договор",
         },
         {
@@ -148,20 +150,28 @@ export default {
   methods: {
     changeSearchQuery(newQuery) {
       this.query = newQuery;
-      
+
       if (this.query) {
         this.filteredList = this.list.filter((item) => {
-          return item.title.includes(this.query)
+          return item.title.includes(this.query);
         });
 
         this.filteredUnClassifiedList = this.unClassifiedList.filter((item) => {
-          return item.title.includes(this.query)
+          return item.title.includes(this.query);
         });
       } else {
         this.filteredList = null;
-         this.filteredUnClassifiedList = null;
+        this.filteredUnClassifiedList = null;
       }
-    }
+    },
+    onEnd(e) {
+      if (e.to.closest(".accordion__content")) {
+        const target = e.to.closest(".accordion__item");
+        const content = target.querySelector(".accordion__content");
+        content.style.maxHeight =
+          target.querySelector(".accordion__content").scrollHeight + 10 + "px";
+      }
+    },
   },
 };
 </script>
