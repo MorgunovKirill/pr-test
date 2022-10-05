@@ -3,6 +3,7 @@
     <div class="document__info">
       <h2 class="document__title">{{ item.title }}</h2>
       <ul class="document__dots" v-if="item.dots?.length"></ul>
+      <p class="document__required" v-if="item.required">Обязательный</p>
       <p class="document__description">{{ item.description }}</p>
     </div>
     <div class="document__options">
@@ -80,6 +81,14 @@ export default {
     line-height: 108%;
     color: #8e9cbb;
     margin: 0;
+  }
+
+  &__required {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 108%;
+    color: #ff238d;
+    margin-right: 16px;
   }
 }
 </style>

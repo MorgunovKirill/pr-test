@@ -157,6 +157,7 @@ export default {
 
   &__content {
     max-height: 0;
+    margin-top: -1px;
     overflow: hidden;
     transition: height $default-transition-settings,
       overflow $default-transition-settings;
